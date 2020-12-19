@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>&radic;3 近似値</title>
+    <link rel="stylesheet" href="css/master.css">
+  </head>
+  <body>
+    <header>
+      <h1>&radic;3 近似値</h1>
+    </header>
+    <main>
+      <p>x=(ax+b)/(cx+d)の形で入力</p>
+      <p>最初はx=(x+3)/(x+1)が入力されています</p>
+      <form class="function" action="index.html" method="get">
+        <div class="numerator">
+          <input type="number" id="a">x
+          +<input type="number" id="b" value="3">
+        </div>
+        <div class="denominator">
+          <input type="number" id="c">x
+          +<input type="number" id="d" value="1">
+        </div>
+        <button type="button" id="calculate">
+          計算！</button>
+      </form>
+      <div class="result">
+        <p>1回目:<span id="first">1</span></p>
+        <p>2回目:<span id="second">2</span></p>
+        <p>3回目:<span id="third">3</span></p>
+      </div>
+    </main>
+    <footer>
+      <p>created by こばゆ</p>
+    </footer>
+    <script type="text/javascript">
+      document.getElementById('calculate')
+        .addEventListener('click',function(){
+          var ans=2;
+          var a=document.getElementById('a').value;
+          if(a==''){
+            a=1;
+          }
+          var b=document.getElementById('b').value;
+          var c=document.getElementById('c').value;
+          if(c==''){
+            c=1;
+          }
+          var d=document.getElementById('d').value;
+          var numerator=a*ans+1*b,denominator=c*ans+1*d;
+          ans=numerator/denominator;
+          document.getElementById('first').innerHTML=ans;
+        });
+    </script>
+  </body>
+</html>

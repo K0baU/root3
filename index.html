@@ -25,9 +25,13 @@
           計算！</button>
       </form>
       <div class="result">
-        <p>1回目:<span id="first">1</span></p>
-        <p>2回目:<span id="second">2</span></p>
-        <p>3回目:<span id="third">3</span></p>
+        <div class="use">
+          <p>1回目:<span id="first">???</span></p>
+          <p>2回目:<span id="second">???</span></p>
+          <p>3回目:<span id="third">???</span></p>
+        </div>
+        <p>2乗した結果:<span id="square">3&plusmn;???</span></p>
+        <p>3との差:<span id="error">???</span></p>
       </div>
     </main>
     <footer>
@@ -50,6 +54,24 @@
           var numerator=a*ans+1*b,denominator=c*ans+1*d;
           ans=numerator/denominator;
           document.getElementById('first').innerHTML=ans;
+          var lastNumerator=numerator;
+          numerator=lastNumerator*a+b*denominator;
+          denominator=lastNumerator*c+d*denominator;
+          ans=numerator/denominator;
+          document.getElementById('second').innerHTML=ans;
+          lastNumerator=numerator;
+          numerator=lastNumerator*a+b*denominator;
+          denominator=lastNumerator*c+d*denominator;
+          ans=numerator/denominator;
+          document.getElementById('third').innerHTML=ans;
+          numerator*=numerator;
+          denominator*=denominator;
+          ans=numerator/denominator;
+          document.getElementById('square').innerHTML=ans;
+          var numerator3=3*denominator;
+          numerator-=numerator3;
+          ans=numerator/denominator;
+          document.getElementById('error').innerHTML=ans;
         });
     </script>
   </body>

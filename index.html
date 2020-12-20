@@ -107,30 +107,30 @@
           ans=numerator/denominator;
           document.getElementById('error').innerHTML=ans;
           if (!ranking.some(function (value) {
-            return value[2]==a
-              && value[3]==b
-              && value[4]==c
-              && value[5]==d
+            return value[1]==a
+              && value[2]==b
+              && value[3]==c
+              && value[4]==d
           })) {
-            ranking.push([numerator,denominator,a,b,c,d]);
+            ranking.push([ans,a,b,c,d]);
           }
           ranking.sort(function(a,b){
-            return a[0]/a[1]-b[0]/b[1];
+            return a[0]-b[0];
           });
           document.getElementById('no1').innerHTML
-            =ranking[0].slice(2);
+            =ranking[0].slice(1);
             if (ranking.length>1) {
               document.getElementById('no2').innerHTML
-                =ranking[1].slice(2);
+                =ranking[1].slice(1);
               if (ranking.length>2) {
                 document.getElementById('no3').innerHTML
-                  =ranking[2].slice(2);
+                  =ranking[2].slice(1);
                 if (ranking.length>3) {
                   document.getElementById('no4').innerHTML
-                    =ranking[3].slice(2);
+                    =ranking[3].slice(1);
                   if (ranking.length>4) {
                     document.getElementById('no5').innerHTML
-                      =ranking[4].slice(2);
+                      =ranking[4].slice(1);
                     if (ranking.length>5) {
                       ranking.pop();
                     }

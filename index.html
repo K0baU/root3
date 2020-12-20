@@ -10,8 +10,31 @@
       <h1>&radic;3 近似値</h1>
     </header>
     <main>
-      <p>x=(ax+b)/(cx+d)の形で入力</p>
-      <p>最初はx=(x+3)/(x+1)が入力されています</p>
+      <p>x=(ax+b)/(cx+d)の形で入力。</p>
+      <p>最初はx=(x+3)/(x+1)が入力されている。</p>
+      <p>結果はつくった近似値を2乗し、3との差で求める。</p>
+      <p>例えば&radic;4の近似値を求め、近似値として1と3が出た場合、
+        真の値は2なので差はいずれも1だが、
+        1と3の2乗はそれぞれ1と9であり、
+        4との差が3と5となるので1の方が上位とされる。</p>
+      <p>このシステムでは
+        整数は&plusmn;2^53までしか精度が保証されないため、
+        約分することなく3回の計算を行った後に
+        分母と分子の絶対値がそれぞれ&radic;2^53未満
+        すなわち94'906'265以下でなければならない。</p>
+      <p>この条件は、
+        以下の式をともに満たすことの必要十分条件となっている。</p>
+      <div class="expression">
+        <p>2a&sup3;+a&sup2;b+b&sup2;c+bd&sup2;+dab+4abc+2bcd
+          &lt;94906265</p>
+        <p>d&sup3;+2a&sup2;c+2bc&sup2;+2cd&sup2;+abc+2bcd+2cda
+          &lt;94906265</p>
+        <p>まあ、あんま自信ないからこの式は気にしなくていいよ。</p>
+        <p>200未満にしとけってこと。</p>
+        <p>全部200未満だったら多分安全だから。</p>
+        <p>1つ2つオーバーしても組み合わせによってはいけるけど、
+          保証はできない。</p>
+      </div>
       <form class="function" action="index.html" method="get">
         <div class="numerator">
           <input type="number" id="a">x
@@ -25,19 +48,30 @@
           計算！</button>
       </form>
       <div class="result">
-        <div class="use">
-          <p>1回目:<span id="first">???</span></p>
-          <p>2回目:<span id="second">???</span></p>
-          <p>3回目:<span id="third">???</span></p>
+        <div class="personal">
+          <div class="use">
+            <p>1回目:<span id="first">???</span></p>
+            <p>2回目:<span id="second">???</span></p>
+            <p>3回目:<span id="third">???</span></p>
+          </div>
+          <p>2乗した結果:<span id="square">???</span></p>
+          <p>3との差:<span id="error">???</span></p>
         </div>
-        <p>2乗した結果:<span id="square">3&plusmn;???</span></p>
-        <p>3との差:<span id="error">???</span></p>
+        <div class="ranking">
+          <p>順位 (a,b,c,d)</p>
+          <p>1位: (<span id="no1">?,?,?,?</span>)</p>
+          <p>2位: (<span id="no2">?,?,?,?</span>)</p>
+          <p>3位: (<span id="no3">?,?,?,?</span>)</p>
+          <p>4位: (<span id="no4">?,?,?,?</span>)</p>
+          <p>5位: (<span id="no5">?,?,?,?</span>)</p>
+        </div>
       </div>
     </main>
     <footer>
       <p>created by こばゆ</p>
     </footer>
     <script type="text/javascript">
+      var ranking=[];
       document.getElementById('calculate')
         .addEventListener('click',function(){
           var ans=2;
@@ -72,6 +106,38 @@
           numerator-=numerator3;
           ans=numerator/denominator;
           document.getElementById('error').innerHTML=ans;
+          if (!ranking.some(function (value) {
+            return value[2]==a
+              && value[3]==b
+              && value[4]==c
+              && value[5]==d
+          })) {
+            ranking.push([numerator,denominator,a,b,c,d]);
+          }
+          ranking.sort(function(a,b){
+            return a[0]/a[1]-b[0]/b[1];
+          });
+          document.getElementById('no1').innerHTML
+            =ranking[0].slice(2);
+            if (ranking.length>1) {
+              document.getElementById('no2').innerHTML
+                =ranking[1].slice(2);
+              if (ranking.length>2) {
+                document.getElementById('no3').innerHTML
+                  =ranking[2].slice(2);
+                if (ranking.length>3) {
+                  document.getElementById('no4').innerHTML
+                    =ranking[3].slice(2);
+                  if (ranking.length>4) {
+                    document.getElementById('no5').innerHTML
+                      =ranking[4].slice(2);
+                    if (ranking.length>5) {
+                      ranking.pop();
+                    }
+                  }
+                }
+              }
+            }
         });
     </script>
   </body>

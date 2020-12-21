@@ -1,11 +1,47 @@
 @import "mvp.css";
 
+header {
+  color: yellow;
+  background-color: rgb(12, 27, 59);
+}
+
+main {
+  background-color: green;
+  padding-bottom: 0;
+}
+
+footer {
+  background-color: rgb(159, 96, 0);
+}
+
+form {
+  color: yellow;
+}
+
+button {
+  background-color: red;
+}
+
+.discription {
+  color: white;
+}
+
 .numerator {
   display: inline-block;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid yellow;
   padding: 3px;
 }
 
 .denominator {
   padding: 3px;
+}
+
+.result {
+  color: yellow;
+}
+
+.ranking {
+  background-color: rgb(105, 56, 0);
+  color: white;
+  padding: 1rem;
 }

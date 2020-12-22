@@ -58,40 +58,37 @@
       <p>created by こばゆ</p>
     </footer>
     <script type="text/javascript">
-      var ranking=[];
+      var ranking=[],numerator,denominator,a,b,c,d;
+      function operate() {
+        var lastNumerator=numerator;
+        numerator=lastNumerator*a+b*denominator;
+        denominator=lastNumerator*c+d*denominator;
+      }
       document.getElementById('calculate')
         .addEventListener('click',function(){
-          var ans=2;
-          var a=document.getElementById('a').value;
+          var x=2;
+          a=document.getElementById('a').value;
           if(a==''){
             a=1;
           }
-          var b=document.getElementById('b').value;
-          var c=document.getElementById('c').value;
+          b=document.getElementById('b').value;
+          c=document.getElementById('c').value;
           if(c==''){
             c=1;
           }
-          var d=document.getElementById('d').value;
-          var numerator=a*ans+1*b,denominator=c*ans+1*d;
-          ans=numerator/denominator;
-          document.getElementById('first').innerHTML=ans;
-          var lastNumerator=numerator;
-          numerator=lastNumerator*a+b*denominator;
-          denominator=lastNumerator*c+d*denominator;
-          ans=numerator/denominator;
-          document.getElementById('second').innerHTML=ans;
-          lastNumerator=numerator;
-          numerator=lastNumerator*a+b*denominator;
-          denominator=lastNumerator*c+d*denominator;
-          ans=numerator/denominator;
-          document.getElementById('third').innerHTML=ans;
+          d=document.getElementById('d').value;
+          numerator=a*x+1*b,denominator=c*x+1*d;
+          document.getElementById('first').innerHTML=numerator/denominator;
+          operate();
+          document.getElementById('second').innerHTML=numerator/denominator;
+          operate();
+          document.getElementById('third').innerHTML=numerator/denominator;
           numerator*=numerator;
           denominator*=denominator;
-          ans=numerator/denominator;
-          document.getElementById('square').innerHTML=ans;
+          document.getElementById('square').innerHTML=numerator/denominator;
           var numerator3=3*denominator;
           numerator-=numerator3;
-          ans=numerator/denominator;
+          var ans=numerator/denominator;
           document.getElementById('error').innerHTML=ans;
           if (!ranking.some(function (value) {
             return value[1]==a
@@ -102,7 +99,7 @@
             ranking.push([ans,a,b,c,d]);
           }
           ranking.sort(function(a,b){
-            return a[0]-b[0];
+            return Math.abs(a[0])-Math.abs(b[0]);
           });
           document.getElementById('no1').innerHTML
             =ranking[0].slice(1);
